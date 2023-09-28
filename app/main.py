@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
 from sqlalchemy.orm import Session
 from crud import create_empleado, read_empleado, create_user, read_user, login, edit_empleado, delete_empleado, get_vacation_by_employee_id, get_all_empleados
-from schemas import EmpleadoCreate, UserCreate, UserLogin, EmpleadoEdit, View_Vacaciones_Schema
+from schemas import EmpleadoCreate, UserCreate, UserLogin, EmpleadoEdit, View_Vacaciones_Schema, LeerEmpleados
 from database import SessionLocal, engine
 from models import Empleados, Users, Base
 from fastapi.middleware.cors import CORSMiddleware
@@ -43,9 +43,12 @@ def create_employee(empleado: EmpleadoCreate, db: Session = Depends(get_db)):
 
 
 # Buscar un empleado
-@app.get("/search_empleado/{num_nomina}", response_model=EmpleadoCreate)
+@app.get("/search_empleado/{num_nomina}", response_model=LeerEmpleados)
 def read_employee(num_nomina: int, db: Session = Depends(get_db)):
-    return read_empleado(num_nomina, db)
+    empleado_data = read_empleado(num_nomina, db)
+    if not empleado_data:
+        raise HTTPException(status_code=404, detail="Empleado no encontrado")
+    return empleado_data
 
 
 # Buscar todos los empleados

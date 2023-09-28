@@ -13,7 +13,20 @@ class EmpleadoCreate(BaseModel):
     is_active: bool
 
 
+# Lee al empleado
+class LeerEmpleados(BaseModel):
+    num_nomina: int
+    nombre: str
+    email: str
+    jefe_directo: int
+    nombre_jefe_directo: str
+    departamento: str
+    fecha_ingreso: date
+    is_active: bool
+
 # Editar empleado
+
+
 class EmpleadoEdit(BaseModel):
     nombre: str
     email: str

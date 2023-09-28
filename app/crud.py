@@ -49,9 +49,31 @@ def create_empleado(empleado: EmpleadoCreate, db: SessionLocal):
 def read_empleado(num_nomina: int, db: Session):
     empleado = db.query(Empleados).filter(
         Empleados.num_nomina == num_nomina).first()
+
     if empleado is None:
         raise HTTPException(status_code=404, detail="Empleado no encontrado")
-    return empleado
+
+    # Obtén el nombre del jefe directo si existe
+    nombre_jefe_directo = None
+    if empleado.jefe_directo is not None:
+        jefe_directo = db.query(Empleados).filter(
+            Empleados.num_nomina == empleado.jefe_directo).first()
+        if jefe_directo:
+            nombre_jefe_directo = jefe_directo.nombre
+
+    # Crea un objeto EmpleadoCreate con el nombre del jefe directo
+    empleado_data = {
+        "num_nomina": empleado.num_nomina,
+        "nombre": empleado.nombre,
+        "jefe_directo": empleado.jefe_directo,
+        "nombre_jefe_directo": nombre_jefe_directo,
+        "email": empleado.email,
+        "departamento": empleado.departamento,
+        "fecha_ingreso": empleado.fecha_ingreso,
+        "is_active": empleado.is_active
+    }
+
+    return empleado_data
 
 
 # Editar un empleado
