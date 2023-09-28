@@ -45,7 +45,7 @@ def create_empleado(empleado: EmpleadoCreate, db: SessionLocal):
     return db_empleado
 
 
-# Función para leer un empleado por número de nómina
+# Función para leer un empleado por número de nómina 1
 def read_empleado(num_nomina: int, db: Session):
     empleado = db.query(Empleados).filter(
         Empleados.num_nomina == num_nomina).first()
