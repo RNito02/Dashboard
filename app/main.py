@@ -42,7 +42,7 @@ def create_employee(empleado: EmpleadoCreate, db: Session = Depends(get_db)):
     return create_empleado(empleado, db)
 
 
-# Buscar un empleado
+# Buscar un empleado por su num de nomina
 @app.get("/search_empleado/{num_nomina}", response_model=LeerEmpleados)
 def read_employee(num_nomina: int, db: Session = Depends(get_db)):
     empleado_data = read_empleado(num_nomina, db)
