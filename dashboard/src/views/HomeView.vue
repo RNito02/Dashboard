@@ -18,6 +18,10 @@
     <router-link to="/DashboardView">
       Dashboard View
     </router-link>
+    <br>
+    <router-link to="/Home_Index">
+      Todos los empledos
+    </router-link>
   </div>
 </template>
 
