@@ -2,11 +2,12 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, Date
 from sqlalchemy.ext.declarative import declarative_base
 from passlib.context import CryptContext
 from database import Base
-
+from sqlalchemy.orm import relationship
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
+# actualizado
 class Empleados(Base):
     __tablename__ = "empleados"
 

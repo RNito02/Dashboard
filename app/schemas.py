@@ -13,7 +13,7 @@ class EmpleadoCreate(BaseModel):
     is_active: bool
 
 
-# Lee al empleado
+# Lee al empleado por separado
 class LeerEmpleados(BaseModel):
     num_nomina: int
     nombre: str
